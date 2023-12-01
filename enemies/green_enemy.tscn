@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=3 uid="uid://qh03jamcdlaw"]
+
+[ext_resource type="PackedScene" uid="uid://c2mr5u4duy4dq" path="res://enemies/enemy.tscn" id="1_5hhta"]
+[ext_resource type="Texture2D" uid="uid://bhrw1gft41vo" path="res://assets/green_enemy.png" id="2_wkuki"]
+[ext_resource type="Script" path="res://components/move_stats.gd" id="3_8v6de"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7dpt"]
+atlas = ExtResource("2_wkuki")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7d4qt"]
+atlas = ExtResource("2_wkuki")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4gug"]
+atlas = ExtResource("2_wkuki")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wsqrm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7dpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7d4qt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4gug")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w71mo"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r2r16"]
+radius = 6.0
+
+[sub_resource type="Resource" id="Resource_vsxvt"]
+script = ExtResource("3_8v6de")
+speed = 30
+
+[node name="GreenEnemy" instance=ExtResource("1_5hhta")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_wsqrm")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.372025
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="1"]
+position = Vector2(0, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("CircleShape2D_w71mo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("CircleShape2D_r2r16")
+
+[node name="MoveComponent" parent="StateComponents" index="0"]
+move_stats = SubResource("Resource_vsxvt")
