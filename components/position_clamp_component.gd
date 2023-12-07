@@ -7,12 +7,20 @@ extends Node2D
 
 # Export a margin for left and right (margin.x) and top and bottom (margin.y)
 @export var margin: = 8
+@export var x_clamp = true;
+@export var y_clamp = false;
 
 # Define the left and right borders to bounce on
 var left_border = 0
 # Use the display viewport width to get the right border of the screen
 var right_border = ProjectSettings.get_setting("display/window/size/viewport_width")
 
-func _process(delta: float) -> void:
+# Define the top and bottom borders to bounce on
+var top_border = 0
+# Use the display viewport width to get the right border of the screen
+var bottom_border = ProjectSettings.get_setting("display/window/size/viewport_height")
+
+func _process(_delta: float) -> void:
 	# clamp the x position of the actor between the left border and the right border (accounting for the margin)
-	actor.global_position.x = clamp(actor.global_position.x, left_border+margin, right_border-margin)
+	if(x_clamp): actor.global_position.x = clamp(actor.global_position.x, left_border + margin, right_border - margin)
+	if(y_clamp): actor.global_position.y = clamp(actor.global_position.y, top_border + margin, bottom_border - margin)

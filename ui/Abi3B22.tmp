@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://cm0sgo6vyags8"]
+
+[ext_resource type="Texture2D" uid="uid://cfmhrq6qe554l" path="res://assets/wave-strike.png" id="1_pf470"]
+[ext_resource type="FontFile" uid="uid://bdvwksay4cd8d" path="res://fonts/kenney_mini_square.ttf" id="2_7rfwg"]
+[ext_resource type="Texture2D" uid="uid://xrv7517g1ykk" path="res://assets/wave-strike-pressed.png" id="2_jyk4r"]
+[ext_resource type="Script" path="res://ui/AbilityButton.gd" id="2_muhc3"]
+[ext_resource type="Texture2D" uid="uid://y7nor2qphg3m" path="res://assets/wave-strike-hovered.png" id="3_d3xls"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_754yo"]
+
+[sub_resource type="Shortcut" id="Shortcut_cgard"]
+events = [SubResource("InputEventKey_754yo")]
+
+[sub_resource type="Gradient" id="Gradient_spojq"]
+colors = PackedColorArray(0.270588, 0.270588, 0.270588, 0.905882, 0.270588, 0.270588, 0.270588, 0.905882)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ha68f"]
+gradient = SubResource("Gradient_spojq")
+
+[node name="AbilityButton" type="TextureButton"]
+clip_contents = true
+custom_minimum_size = Vector2(16, 16)
+offset_right = 72.0
+offset_bottom = 72.0
+size_flags_horizontal = 2
+tooltip_text = "Test tooltip"
+shortcut = SubResource("Shortcut_cgard")
+texture_normal = ExtResource("1_pf470")
+texture_pressed = ExtResource("2_jyk4r")
+texture_hover = ExtResource("3_d3xls")
+texture_disabled = ExtResource("1_pf470")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_muhc3")
+cooldown = 5.0
+
+[node name="CooldownProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_right = 72.0
+offset_bottom = 72.0
+step = 0.05
+fill_mode = 5
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_ha68f")
+tint_progress = Color(0.239216, 0.239216, 0.239216, 1)
+
+[node name="Timer" type="Timer" parent="CooldownProgressBar"]
+one_shot = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="CooldownLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0.498039, 0.305882, 1)
+theme_override_fonts/font = ExtResource("2_7rfwg")
+theme_override_font_sizes/font_size = 16
+text = "1.0"
+horizontal_alignment = 2
+vertical_alignment = 2
+clip_text = true
+
+[node name="KeybindLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.603834, 1, 0.775547, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.498039, 0.305882, 1)
+theme_override_fonts/font = ExtResource("2_7rfwg")
+text = "a"
+vertical_alignment = 2
+
+[connection signal="timeout" from="CooldownProgressBar/Timer" to="." method="_on_timer_timeout"]

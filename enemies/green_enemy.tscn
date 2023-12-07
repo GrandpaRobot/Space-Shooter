@@ -61,5 +61,8 @@ shape = SubResource("CircleShape2D_w71mo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
 shape = SubResource("CircleShape2D_r2r16")
 
+[node name="HealthStatsComponent" parent="StatsComponents" index="0"]
+health = 3
+
 [node name="MoveComponent" parent="StateComponents" index="0"]
 move_stats = SubResource("Resource_vsxvt")

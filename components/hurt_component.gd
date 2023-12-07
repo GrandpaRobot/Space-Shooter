@@ -5,7 +5,7 @@ extends Node
 # Grab the stats so we can alter the health
 @export var stats_component: StatsComponent
 
-# Grab a hurtbox so we know when we have taken a hiet
+# Grab a hurtbox so we know when we have taken a hit
 @export var hurtbox_component: HurtboxComponent
 
 func _ready() -> void:
