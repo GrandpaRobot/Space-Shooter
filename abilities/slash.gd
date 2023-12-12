@@ -1,9 +1,8 @@
-extends Node2D
+extends Ability
 
-@onready var timer = $DisappearTimer
+# TODO - this is bad, fix this
+@onready var center_forward = $"../../WeaponsSpriteAnchor/CenterForward"
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	await timer.timeout
-	queue_free()
+func cast():
+	pass
+	#slash_spawner_component.spawn(center_forward.global_position)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dnxsi0xc3piik"]
+[gd_scene load_steps=29 format=3 uid="uid://dnxsi0xc3piik"]
 
 [ext_resource type="Script" path="res://player_ship/ship.gd" id="1_1cl4p"]
 [ext_resource type="Script" path="res://components/move_input_component.gd" id="1_3r62g"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://components/move_component.gd" id="2_mkt0k"]
 [ext_resource type="Script" path="res://components/move_stats.gd" id="4_rx6yn"]
 [ext_resource type="Script" path="res://components/position_clamp_component.gd" id="5_8btcb"]
-[ext_resource type="PackedScene" uid="uid://dajjbygo7dqqb" path="res://abilities/Slash.tscn" id="6_hjbjx"]
+[ext_resource type="PackedScene" uid="uid://dajjbygo7dqqb" path="res://abilities/slash.tscn" id="6_hjbjx"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="7_xj0ml"]
 [ext_resource type="PackedScene" uid="uid://bwk3i7w3xyc0f" path="res://projectiles/laser.tscn" id="8_j4aqg"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="9_w16kn"]
@@ -16,8 +16,6 @@
 [ext_resource type="Script" path="res://components/destroyed_component.gd" id="13_4lw7h"]
 [ext_resource type="PackedScene" uid="uid://buqnvv77sevtv" path="res://effects/explosion_effect.tscn" id="13_571p8"]
 [ext_resource type="Script" path="res://components/hurt_component.gd" id="13_ew4pb"]
-[ext_resource type="Script" path="res://test/attack_input_component.gd" id="17_wmupw"]
-[ext_resource type="PackedScene" uid="uid://ci51dnvfh867f" path="res://abilities/Explode.tscn" id="18_ugcds"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p23cr"]
 atlas = ExtResource("1_hwex5")
@@ -122,9 +120,8 @@ animations = [{
 script = ExtResource("4_rx6yn")
 speed = 100
 
-[node name="Ship" type="Node2D" node_paths=PackedStringArray("abilities")]
+[node name="Ship" type="Node2D"]
 script = ExtResource("1_1cl4p")
-abilities = [NodePath("AbilityGroup/Slash"), NodePath("AbilityGroup/Explode")]
 
 [node name="SpriteAnchor" type="Node2D" parent="."]
 
@@ -220,20 +217,12 @@ destroy_effect_spawner_components = [NodePath("../../ExplosionSpawnerComponent")
 
 [node name="WeaponsGroup" type="Node" parent="."]
 
-[node name="AttackInputComponent" type="Node" parent="WeaponsGroup" node_paths=PackedStringArray("actor", "fire_rate_timer")]
-script = ExtResource("17_wmupw")
-actor = NodePath("../..")
-fire_rate_timer = NodePath("../FireRateTimer")
-
 [node name="FireRateTimer" type="Timer" parent="WeaponsGroup"]
 wait_time = 0.4
-one_shot = true
 autostart = true
 
-[node name="AbilityGroup" type="Node2D" parent="."]
+[node name="AbilitiesGroup" type="Node" parent="."]
 
-[node name="Slash" parent="AbilityGroup" instance=ExtResource("6_hjbjx")]
-position = Vector2(0, -7)
-
-[node name="Explode" parent="AbilityGroup" instance=ExtResource("18_ugcds")]
-visible = false
+[node name="Ability1LockoutTimer" type="Timer" parent="AbilitiesGroup"]
+wait_time = 5.0
+one_shot = true

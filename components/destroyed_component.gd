@@ -19,5 +19,6 @@ func destroy() -> void:
 	# create an effect (from the spawner component) and free the actor
 	for component in destroy_effect_spawner_components:
 		component.call_deferred('spawn', actor.global_position)
-	actor.queue_free()
+	actor.queue_free()		
+	
 	

@@ -1,25 +1,57 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1fi0cr5rt1a"]
+[gd_scene load_steps=8 format=3 uid="uid://b1fi0cr5rt1a"]
 
 [ext_resource type="PackedScene" uid="uid://dnxsi0xc3piik" path="res://player_ship/ship.tscn" id="1_lxr0n"]
 [ext_resource type="PackedScene" uid="uid://fwd72kkqeyh4" path="res://effects/space_background.tscn" id="2_xl0g5"]
 [ext_resource type="PackedScene" uid="uid://du2tc0co6bpt6" path="res://enemies/EnemySpawner.tscn" id="4_r5s5m"]
-[ext_resource type="PackedScene" uid="uid://c0sn4dc1al4nd" path="res://ui/AbilityBar.tscn" id="4_r7ceq"]
+[ext_resource type="Script" path="res://ScoreContainer.gd" id="6_cjt2l"]
+[ext_resource type="PackedScene" uid="uid://c0sn4dc1al4nd" path="res://ui/AbilityBar.tscn" id="6_gt76b"]
+[ext_resource type="Script" path="res://components/world_component.gd" id="6_k5rk1"]
+[ext_resource type="Resource" uid="uid://c0j0oaqb8xqup" path="res://game_stats.tres" id="7_vgyod"]
 
 [node name="World" type="Node2D"]
 
-[node name="Ship" parent="." instance=ExtResource("1_lxr0n")]
-position = Vector2(96, 216)
+[node name="WorldUI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
-[node name="SpaceBackground" parent="." instance=ExtResource("2_xl0g5")]
+[node name="AbilityBar" parent="WorldUI" instance=ExtResource("6_gt76b")]
+offset_left = 194.0
+offset_top = 250.0
+offset_right = 286.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ScoreContainer" type="HBoxContainer" parent="WorldUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -29.0
+offset_right = 30.0
+offset_bottom = 20.0
+grow_horizontal = 2
+script = ExtResource("6_cjt2l")
+game_stats = ExtResource("7_vgyod")
+
+[node name="ScoreLabel" type="Label" parent="WorldUI/ScoreContainer"]
+layout_mode = 2
+text = "Score:"
+
+[node name="Score" type="Label" parent="WorldUI/ScoreContainer"]
+layout_mode = 2
+
+[node name="Ship" parent="." instance=ExtResource("1_lxr0n")]
+position = Vector2(240, 216)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_r5s5m")]
 position = Vector2(8, -8)
 
-[node name="AbilitiesGroup" type="Node" parent="."]
+[node name="SpaceBackground" parent="." instance=ExtResource("2_xl0g5")]
 
-[node name="Control" parent="." instance=ExtResource("4_r7ceq")]
-offset_left = 232.0
-offset_top = 256.0
-offset_right = 232.0
-offset_bottom = 256.0
-size_flags_vertical = 8
+[node name="WorldComponent" type="Node" parent="."]
+script = ExtResource("6_k5rk1")
+
+[connection signal="child_exiting_tree" from="Ship" to="Ship" method="_on_child_exiting_tree"]
+[connection signal="tree_exited" from="Ship" to="Ship" method="_on_tree_exited"]
+[connection signal="tree_exiting" from="Ship" to="Ship" method="_on_tree_exiting"]

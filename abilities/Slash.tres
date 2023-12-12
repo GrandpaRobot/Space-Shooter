@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3 uid="uid://b1004d1tnt5bo"]
+
+[ext_resource type="Texture2D" uid="uid://cfmhrq6qe554l" path="res://assets/wave-strike.png" id="1_3ywlh"]
+[ext_resource type="Script" path="res://abilities/AbilityData.gd" id="1_meoli"]
+
+[resource]
+script = ExtResource("1_meoli")
+name = "Slash"
+base_damage = 10
+cooldown = 5.0
+description = "This slashes"
+damage_type = "Slash"
+icon = ExtResource("1_3ywlh")

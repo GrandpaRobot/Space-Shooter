@@ -1,15 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://dajjbygo7dqqb"]
 
 [ext_resource type="Script" path="res://components/hitbox_component.gd" id="1_7ymcg"]
-[ext_resource type="Script" path="res://abilities/Slash.gd" id="1_hsshe"]
-[ext_resource type="Resource" uid="uid://b1004d1tnt5bo" path="res://abilities/Slash.tres" id="2_3e1q5"]
+[ext_resource type="Script" path="res://abilities/slash.gd" id="1_hsshe"]
+[ext_resource type="Script" path="res://components/ability_component.gd" id="3_5coff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpu5w"]
 size = Vector2(35, 12)
 
-[node name="Slash" type="Node2D"]
+[node name="slash" type="Node2D"]
 script = ExtResource("1_hsshe")
-ability_data = ExtResource("2_3e1q5")
 
 [node name="HitboxComponent" type="Area2D" parent="."]
 collision_layer = 0
@@ -23,7 +22,7 @@ visibility_layer = 0
 position = Vector2(0.5, -6)
 shape = SubResource("RectangleShape2D_xpu5w")
 
-[node name="RandomGraphic" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(0, -6)
 polygon = PackedVector2Array(-17, -6, -17, 6, 18, 6, 18, -6)
 
@@ -31,3 +30,6 @@ polygon = PackedVector2Array(-17, -6, -17, 6, 18, 6, 18, -6)
 wait_time = 0.5
 one_shot = true
 autostart = true
+
+[node name="AbilityComponent" type="Node" parent="."]
+script = ExtResource("3_5coff")

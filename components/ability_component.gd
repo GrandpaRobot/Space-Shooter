@@ -1,12 +1,14 @@
 class_name AbilityComponent
 extends Node
 
+@export var ability_name: String = "~~~"
+@export var cooldown: float = 200.0
+@export var image: Texture2D = preload("res://assets/wave-strike.png")
+@export var origin_place: Vector2
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func get_info() -> AbilityComponent:
+	return self
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func activate():
+	#slash_spawner_component.spawn(center_forward.global_position)
 	pass

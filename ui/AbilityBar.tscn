@@ -1,28 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0sn4dc1al4nd"]
+[gd_scene load_steps=3 format=3 uid="uid://c0sn4dc1al4nd"]
 
 [ext_resource type="PackedScene" uid="uid://dnwmdk37hl2rq" path="res://ui/AbilityButton.tscn" id="1_w0x08"]
+[ext_resource type="Script" path="res://ui/HBoxContainer.gd" id="2_huhpy"]
 
-[node name="AbilityBar" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
+[node name="AbilityBar" type="HBoxContainer"]
+offset_right = 92.0
+offset_bottom = 20.0
+script = ExtResource("2_huhpy")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="AbilityButton1" parent="." instance=ExtResource("1_w0x08")]
+layout_mode = 2
 
-[node name="AbilityButton" parent="HBoxContainer" instance=ExtResource("1_w0x08")]
+[node name="AbilityButton2" parent="." groups=["AbilityButtonGroup"] instance=ExtResource("1_w0x08")]
+layout_mode = 2
+
+[node name="AbilityButton3" parent="." groups=["AbilityButtonGroup"] instance=ExtResource("1_w0x08")]
+layout_mode = 2
+
+[node name="AbilityButton4" parent="." groups=["AbilityButtonGroup"] instance=ExtResource("1_w0x08")]
 layout_mode = 2
