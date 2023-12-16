@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bwk3i7w3xyc0f"]
 
 [ext_resource type="Script" path="res://projectiles/laser.gd" id="1_8qkin"]
-[ext_resource type="Texture2D" uid="uid://cvv3gupf5lwe3" path="res://assets/laser_small.png" id="1_gpe88"]
+[ext_resource type="Texture2D" uid="uid://cvv3gupf5lwe3" path="res://assets/Combat/laser_small.png" id="2_2csp0"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="2_j0jse"]
 [ext_resource type="Script" path="res://components/move_stats.gd" id="3_8ueda"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="5_bde4t"]
@@ -19,7 +19,7 @@ size = Vector2(4, 8)
 script = ExtResource("1_8qkin")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_gpe88")
+texture = ExtResource("2_2csp0")
 
 [node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("2_j0jse")

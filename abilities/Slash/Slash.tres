@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=4 format=3 uid="uid://b1004d1tnt5bo"]
+
+[ext_resource type="Texture2D" uid="uid://cfmhrq6qe554l" path="res://assets/Skills/wave-strike.png" id="1_3ywlh"]
+[ext_resource type="Script" path="res://abilities/AbilityData.gd" id="2_kx3b6"]
+[ext_resource type="PackedScene" uid="uid://dajjbygo7dqqb" path="res://abilities/Slash/Slash.tscn" id="2_wob2a"]
+
+[resource]
+script = ExtResource("2_kx3b6")
+name = "Slash"
+base_damage = 10
+cooldown = 1.0
+description = "This slashes"
+damage_type = "Slash"
+icon = ExtResource("1_3ywlh")
+scene = ExtResource("2_wob2a")

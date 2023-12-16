@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=4 format=3 uid="uid://cb75sbqw8ansl"]
+
+[ext_resource type="Script" path="res://abilities/Blink/Blink.gd" id="1_dnfba"]
+[ext_resource type="Texture2D" uid="uid://dbetj4aart47j" path="res://assets/Skills/teleport.png" id="1_ogpmg"]
+[ext_resource type="Script" path="res://abilities/AbilityData.gd" id="3_xo27t"]
+
+[resource]
+script = ExtResource("3_xo27t")
+name = "Blink"
+base_damage = 0
+cooldown = 1.0
+description = "This blinks"
+damage_type = "N/A"
+icon = ExtResource("1_ogpmg")
+ability_script = ExtResource("1_dnfba")

@@ -1,0 +1,13 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://c1xax1pjb62dg"]
+
+[resource]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 62.329
+initial_velocity_min = 24.64
+initial_velocity_max = 44.9
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.7
+color = Color(0.996078, 0.807843, 0.537255, 0.745098)

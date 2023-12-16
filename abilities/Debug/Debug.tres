@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=3 format=3 uid="uid://dcvhn5ig57rnf"]
+
+[ext_resource type="Texture2D" uid="uid://b5yo07gpkkf5m" path="res://assets/UI/Debug.png" id="1_egn20"]
+[ext_resource type="Script" path="res://abilities/AbilityData.gd" id="2_edqwu"]
+
+[resource]
+script = ExtResource("2_edqwu")
+name = "Debug"
+base_damage = 0
+cooldown = 10.0
+description = "Debug - if you see this, something went wrong"
+damage_type = "N/A"
+icon = ExtResource("1_egn20")

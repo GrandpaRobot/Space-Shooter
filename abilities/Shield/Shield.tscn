@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://rnc1x8smiuuw"]
+
+[ext_resource type="Script" path="res://abilities/Shield/Shield.gd" id="1_7m64a"]
+[ext_resource type="Shader" path="res://player_ship/ship.gdshader" id="2_et06o"]
+[ext_resource type="Texture2D" uid="uid://b5yo07gpkkf5m" path="res://assets/UI/Debug.png" id="3_wyfa6"]
+[ext_resource type="Script" path="res://components/hurt_component.gd" id="4_4l3br"]
+[ext_resource type="Script" path="res://components/hurtbox_component.gd" id="4_x03mr"]
+[ext_resource type="Script" path="res://components/stats_component.gd" id="6_806xw"]
+[ext_resource type="Script" path="res://components/spawner_component.gd" id="7_m60hq"]
+[ext_resource type="PackedScene" uid="uid://dxp0fpric18eq" path="res://effects/shield_hit.tscn" id="8_exu7m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ejges"]
+shader = ExtResource("2_et06o")
+shader_parameter/hit_angle = null
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_62h5f"]
+radius = 19.0
+
+[node name="Shield" type="Node2D"]
+z_index = 1
+script = ExtResource("1_7m64a")
+
+[node name="DisappearTimer" type="Timer" parent="."]
+wait_time = 200.0
+one_shot = true
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ejges")
+scale = Vector2(10.5, 10.5)
+texture = ExtResource("3_wyfa6")
+
+[node name="HurtComponent" type="Node" parent="." node_paths=PackedStringArray("stats_component", "hurtbox_component")]
+script = ExtResource("4_4l3br")
+stats_component = NodePath("../StatsComponent")
+hurtbox_component = NodePath("../HurtboxComponent")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_x03mr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+light_mask = 0
+visibility_layer = 0
+shape = SubResource("CircleShape2D_62h5f")
+
+[node name="StatsComponent" type="Node" parent="."]
+script = ExtResource("6_806xw")
+health = 2000
+
+[node name="ClearDamageTimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="ShieldHitSpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("7_m60hq")
+scene = ExtResource("8_exu7m")
+
+[connection signal="timeout" from="ClearDamageTimer" to="." method="_on_clear_damage_timer_timeout"]

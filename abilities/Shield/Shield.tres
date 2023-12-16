@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" load_steps=4 format=3 uid="uid://dhcubdlycg5oy"]
+
+[ext_resource type="Texture2D" uid="uid://cbrxot7huyq5l" path="res://assets/Skills/vibrating-shield.png" id="1_d0sne"]
+[ext_resource type="PackedScene" uid="uid://rnc1x8smiuuw" path="res://abilities/Shield/Shield.tscn" id="2_anfh5"]
+[ext_resource type="Script" path="res://abilities/AbilityData.gd" id="3_eq4me"]
+
+[resource]
+script = ExtResource("3_eq4me")
+name = "Shield"
+base_damage = 0
+cooldown = 1.0
+description = "This shields"
+damage_type = "N/A"
+icon = ExtResource("1_d0sne")
+scene = ExtResource("2_anfh5")

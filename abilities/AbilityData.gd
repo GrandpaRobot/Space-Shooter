@@ -8,3 +8,5 @@ class_name AbilityData
 @export var description: String
 @export var damage_type: String
 @export var icon: Texture2D
+@export var scene: PackedScene
+@export var ability_script: Script

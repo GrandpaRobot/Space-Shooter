@@ -2,22 +2,25 @@
 
 [ext_resource type="Script" path="res://player_ship/ship.gd" id="1_1cl4p"]
 [ext_resource type="Script" path="res://components/move_input_component.gd" id="1_3r62g"]
-[ext_resource type="Texture2D" uid="uid://mdbwn46eluvf" path="res://assets/ship.png" id="1_hwex5"]
+[ext_resource type="Texture2D" uid="uid://mdbwn46eluvf" path="res://assets/Player/ship.png" id="1_hwex5"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="2_mkt0k"]
+[ext_resource type="Shader" path="res://player_ship/ship.gdshader" id="2_ro8w2"]
 [ext_resource type="Script" path="res://components/move_stats.gd" id="4_rx6yn"]
 [ext_resource type="Script" path="res://components/position_clamp_component.gd" id="5_8btcb"]
-[ext_resource type="PackedScene" uid="uid://dajjbygo7dqqb" path="res://abilities/Slash.tscn" id="6_hjbjx"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="7_xj0ml"]
 [ext_resource type="PackedScene" uid="uid://bwk3i7w3xyc0f" path="res://projectiles/laser.tscn" id="8_j4aqg"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="9_w16kn"]
-[ext_resource type="Texture2D" uid="uid://btrwexa7kvtlm" path="res://assets/ship_flame.png" id="10_hjr5r"]
+[ext_resource type="Texture2D" uid="uid://btrwexa7kvtlm" path="res://assets/Player/ship_flame.png" id="10_hjr5r"]
 [ext_resource type="Script" path="res://components/stats_component.gd" id="11_yldfa"]
 [ext_resource type="Script" path="res://components/hurtbox_component.gd" id="12_jgdg2"]
 [ext_resource type="Script" path="res://components/destroyed_component.gd" id="13_4lw7h"]
 [ext_resource type="PackedScene" uid="uid://buqnvv77sevtv" path="res://effects/explosion_effect.tscn" id="13_571p8"]
 [ext_resource type="Script" path="res://components/hurt_component.gd" id="13_ew4pb"]
-[ext_resource type="Script" path="res://test/attack_input_component.gd" id="17_wmupw"]
-[ext_resource type="PackedScene" uid="uid://ci51dnvfh867f" path="res://abilities/Explode.tscn" id="18_ugcds"]
+[ext_resource type="Script" path="res://components/attack_input_component.gd" id="17_wmupw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n8nii"]
+shader = ExtResource("2_ro8w2")
+shader_parameter/hit_angle = null
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p23cr"]
 atlas = ExtResource("1_hwex5")
@@ -122,9 +125,9 @@ animations = [{
 script = ExtResource("4_rx6yn")
 speed = 100
 
-[node name="Ship" type="Node2D" node_paths=PackedStringArray("abilities")]
+[node name="Ship" type="Node2D"]
+material = SubResource("ShaderMaterial_n8nii")
 script = ExtResource("1_1cl4p")
-abilities = [NodePath("AbilityGroup/Slash"), NodePath("AbilityGroup/Explode")]
 
 [node name="SpriteAnchor" type="Node2D" parent="."]
 
@@ -148,6 +151,7 @@ animation = &"center"
 autoplay = "center"
 
 [node name="WeaponsSpriteAnchor" type="Node2D" parent="."]
+visible = false
 
 [node name="LeftMuzzle" type="Marker2D" parent="WeaponsSpriteAnchor"]
 position = Vector2(-5, -4)
@@ -158,15 +162,12 @@ position = Vector2(5, -4)
 [node name="CenterForward" type="Marker2D" parent="WeaponsSpriteAnchor"]
 position = Vector2(0, -7)
 
-[node name="SpawnerComponent" type="Node2D" parent="WeaponsSpriteAnchor"]
+[node name="LaserSpawnerComponent" type="Node2D" parent="WeaponsSpriteAnchor"]
 script = ExtResource("7_xj0ml")
 scene = ExtResource("8_j4aqg")
 
-[node name="SlashSpawnerComponent" type="Node2D" parent="WeaponsSpriteAnchor"]
-script = ExtResource("7_xj0ml")
-scene = ExtResource("6_hjbjx")
-
 [node name="PlayerHurtboxComponent" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("12_jgdg2")
@@ -229,11 +230,3 @@ fire_rate_timer = NodePath("../FireRateTimer")
 wait_time = 0.4
 one_shot = true
 autostart = true
-
-[node name="AbilityGroup" type="Node2D" parent="."]
-
-[node name="Slash" parent="AbilityGroup" instance=ExtResource("6_hjbjx")]
-position = Vector2(0, -7)
-
-[node name="Explode" parent="AbilityGroup" instance=ExtResource("18_ugcds")]
-visible = false

@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://ixob415furko"]
 
-[ext_resource type="FontFile" uid="uid://bdvwksay4cd8d" path="res://fonts/kenney_mini_square.ttf" id="1_u14pw"]
+[ext_resource type="FontFile" uid="uid://bdvwksay4cd8d" path="res://ui/Fonts/kenney_mini_square.ttf" id="1_u14pw"]
 
 [resource]
 default_font = ExtResource("1_u14pw")

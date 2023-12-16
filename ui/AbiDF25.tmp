@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0sn4dc1al4nd"]
+
+[ext_resource type="PackedScene" uid="uid://dnwmdk37hl2rq" path="res://ui/AbilityButton.tscn" id="1_w0x08"]
+[ext_resource type="Script" path="res://ui/AbilityBar.gd" id="2_huhpy"]
+
+[node name="AbilityBar" type="HBoxContainer"]
+offset_right = 92.0
+offset_bottom = 20.0
+script = ExtResource("2_huhpy")
+
+[node name="AbilityButton1" parent="." instance=ExtResource("1_w0x08")]
+layout_mode = 2
+
+[node name="AbilityButton2" parent="." groups=["AbilityButtonGroup"] instance=ExtResource("1_w0x08")]
+layout_mode = 2
+
+[node name="AbilityButton3" parent="." groups=["AbilityButtonGroup"] instance=ExtResource("1_w0x08")]
+layout_mode = 2
+
+[node name="AbilityButton4" parent="." groups=["AbilityButtonGroup"] instance=ExtResource("1_w0x08")]
+layout_mode = 2

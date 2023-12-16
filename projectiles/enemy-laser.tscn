@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://uhbd257v8gg7"]
+
+[ext_resource type="Script" path="res://projectiles/enemy_laser.gd" id="1_i8lcs"]
+[ext_resource type="Texture2D" uid="uid://ctcbq76ao1s3p" path="res://assets/Combat/pink_enemy_projectile.png" id="2_ys74t"]
+[ext_resource type="Script" path="res://components/move_component.gd" id="3_ys0dm"]
+[ext_resource type="Script" path="res://components/move_stats.gd" id="4_kcpah"]
+[ext_resource type="Script" path="res://components/hitbox_component.gd" id="7_6bt0l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3ew2"]
+atlas = ExtResource("2_ys74t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05sdh"]
+atlas = ExtResource("2_ys74t")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t50ef"]
+atlas = ExtResource("2_ys74t")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osvmw"]
+atlas = ExtResource("2_ys74t")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ru3hx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3ew2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05sdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t50ef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_osvmw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_in6xw"]
+script = ExtResource("4_kcpah")
+speed = 20
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4pe2"]
+size = Vector2(8, 8)
+
+[node name="EnemyLaser" type="Node2D"]
+script = ExtResource("1_i8lcs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ru3hx")
+autoplay = "default"
+frame = 1
+frame_progress = 0.0328497
+
+[node name="MoveComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("3_ys0dm")
+actor = NodePath("..")
+velocity = Vector2(200, 0)
+move_stats = SubResource("Resource_in6xw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2.38419e-07, -5.96046e-08)
+scale = Vector2(0.4, 0.4)
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 18
+script = ExtResource("7_6bt0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+light_mask = 0
+visibility_layer = 0
+shape = SubResource("RectangleShape2D_a4pe2")
