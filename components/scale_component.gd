@@ -16,7 +16,7 @@ func tween_scale() -> void:
 	# We are going to scale the sprite using a tween (so we can make is smooth)
 	# First we create the tween and set it's transition type and easing type
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	
+
 	# Next we scale the sprite from its current scale to the scale amount (in 1/10th of the scale duration)
 	tween.tween_property(sprite, "scale", scale_amount, scale_duration * 0.1).from_current()
 	# Finally we scale back to a value of 1 for the other 9/10ths of the scale duration

@@ -1,16 +1,15 @@
-[gd_scene load_steps=31 format=3 uid="uid://dnxsi0xc3piik"]
+[gd_scene load_steps=19 format=3 uid="uid://dnxsi0xc3piik"]
 
 [ext_resource type="Script" path="res://player_ship/ship.gd" id="1_1cl4p"]
 [ext_resource type="Script" path="res://components/move_input_component.gd" id="1_3r62g"]
-[ext_resource type="Texture2D" uid="uid://mdbwn46eluvf" path="res://assets/Player/ship.png" id="1_hwex5"]
 [ext_resource type="Script" path="res://components/move_component.gd" id="2_mkt0k"]
 [ext_resource type="Shader" path="res://player_ship/ship.gdshader" id="2_ro8w2"]
+[ext_resource type="PackedScene" uid="uid://vjqeorqpfo0v" path="res://player_ship/ship_sprite.tscn" id="3_q7pg7"]
 [ext_resource type="Script" path="res://components/move_stats.gd" id="4_rx6yn"]
 [ext_resource type="Script" path="res://components/position_clamp_component.gd" id="5_8btcb"]
 [ext_resource type="Script" path="res://components/spawner_component.gd" id="7_xj0ml"]
 [ext_resource type="PackedScene" uid="uid://bwk3i7w3xyc0f" path="res://projectiles/laser.tscn" id="8_j4aqg"]
 [ext_resource type="Script" path="res://components/scale_component.gd" id="9_w16kn"]
-[ext_resource type="Texture2D" uid="uid://btrwexa7kvtlm" path="res://assets/Player/ship_flame.png" id="10_hjr5r"]
 [ext_resource type="Script" path="res://components/stats_component.gd" id="11_yldfa"]
 [ext_resource type="Script" path="res://components/hurtbox_component.gd" id="12_jgdg2"]
 [ext_resource type="Script" path="res://components/destroyed_component.gd" id="13_4lw7h"]
@@ -22,105 +21,6 @@
 shader = ExtResource("2_ro8w2")
 shader_parameter/hit_angle = null
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p23cr"]
-atlas = ExtResource("1_hwex5")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_comqq"]
-atlas = ExtResource("1_hwex5")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2yx2m"]
-atlas = ExtResource("1_hwex5")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_t135g"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p23cr")
-}],
-"loop": true,
-"name": &"bank_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_comqq")
-}],
-"loop": true,
-"name": &"bank_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2yx2m")
-}],
-"loop": true,
-"name": &"center",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_itu78"]
-atlas = ExtResource("10_hjr5r")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y6dup"]
-atlas = ExtResource("10_hjr5r")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lguw4"]
-atlas = ExtResource("10_hjr5r")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dmect"]
-atlas = ExtResource("10_hjr5r")
-region = Rect2(32, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dydvt"]
-atlas = ExtResource("10_hjr5r")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s3tmt"]
-atlas = ExtResource("10_hjr5r")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_embnf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_itu78")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y6dup")
-}],
-"loop": true,
-"name": &"bank_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lguw4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dmect")
-}],
-"loop": true,
-"name": &"bank_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dydvt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s3tmt")
-}],
-"loop": true,
-"name": &"center",
-"speed": 10.0
-}]
-
 [sub_resource type="Resource" id="Resource_8q5de"]
 script = ExtResource("4_rx6yn")
 speed = 100
@@ -129,29 +29,9 @@ speed = 100
 material = SubResource("ShaderMaterial_n8nii")
 script = ExtResource("1_1cl4p")
 
-[node name="SpriteAnchor" type="Node2D" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteAnchor"]
-sprite_frames = SubResource("SpriteFrames_t135g")
-animation = &"center"
-autoplay = "center"
-
-[node name="LeftFlame" type="AnimatedSprite2D" parent="SpriteAnchor"]
-position = Vector2(-3, 11)
-scale = Vector2(0.3125, 0.4375)
-sprite_frames = SubResource("SpriteFrames_embnf")
-animation = &"bank_right"
-autoplay = "center"
-
-[node name="RightFlame" type="AnimatedSprite2D" parent="SpriteAnchor"]
-position = Vector2(3, 11)
-scale = Vector2(0.32251, 0.4375)
-sprite_frames = SubResource("SpriteFrames_embnf")
-animation = &"center"
-autoplay = "center"
+[node name="Sprite" parent="." instance=ExtResource("3_q7pg7")]
 
 [node name="WeaponsSpriteAnchor" type="Node2D" parent="."]
-visible = false
 
 [node name="LeftMuzzle" type="Marker2D" parent="WeaponsSpriteAnchor"]
 position = Vector2(-5, -4)
@@ -167,7 +47,6 @@ script = ExtResource("7_xj0ml")
 scene = ExtResource("8_j4aqg")
 
 [node name="PlayerHurtboxComponent" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("12_jgdg2")
@@ -198,13 +77,12 @@ move_stats = SubResource("Resource_8q5de")
 [node name="ScreenClampComponent" type="Node2D" parent="MovementGroup" node_paths=PackedStringArray("actor")]
 script = ExtResource("5_8btcb")
 actor = NodePath("../..")
-y_clamp = true
 
 [node name="VisualGroup" type="Node" parent="."]
 
 [node name="ScaleComponent" type="Node" parent="VisualGroup" node_paths=PackedStringArray("sprite")]
 script = ExtResource("9_w16kn")
-sprite = NodePath("../../SpriteAnchor")
+sprite = NodePath("../../Sprite")
 
 [node name="StateGroup" type="Node" parent="."]
 

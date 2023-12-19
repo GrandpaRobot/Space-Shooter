@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://xu2ob4fwkv8g"]
+
+[ext_resource type="PackedScene" uid="uid://fwd72kkqeyh4" path="res://effects/space_background.tscn" id="1_ow513"]
+[ext_resource type="PackedScene" uid="uid://vjqeorqpfo0v" path="res://player_ship/ship_sprite.tscn" id="3_ql8ax"]
+
+[sub_resource type="GDScript" id="GDScript_g5awj"]
+script/source = "extends Node2D
+
+@onready var player_ship = $Ship
+
+func _ready() -> void:
+	print('starting...')
+	await get_tree().create_timer(2.0).timeout
+	print('ship moving up')
+	get_tree().create_tween().tween_property(player_ship, \"position\", Vector2(player_ship.position.x,player_ship.position.y - 50), 3)
+
+
+"
+
+[node name="Intro" type="Node2D"]
+script = SubResource("GDScript_g5awj")
+
+[node name="SpaceBackground" parent="." instance=ExtResource("1_ow513")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 134)
+
+[node name="Ship" parent="." instance=ExtResource("3_ql8ax")]
+position = Vector2(238, 198)
+scale = Vector2(5, 5)

@@ -1,0 +1,114 @@
+[gd_scene load_steps=20 format=3 uid="uid://b1fi0cr5rt1a"]
+
+[ext_resource type="Script" path="res://levels/space/world.gd" id="1_2f0a6"]
+[ext_resource type="PackedScene" uid="uid://c2clu11i26k4n" path="res://ui/Combat/health-bar.tscn" id="2_l5d88"]
+[ext_resource type="Shader" path="res://ui/Combat/health_bar.gdshader" id="3_8rdv6"]
+[ext_resource type="PackedScene" uid="uid://c0sn4dc1al4nd" path="res://ui/Combat/AbilityBar.tscn" id="4_rrirr"]
+[ext_resource type="Script" path="res://ui/Combat/ScoreContainer.gd" id="5_ijiq8"]
+[ext_resource type="Resource" uid="uid://c0j0oaqb8xqup" path="res://game_stats.tres" id="6_3u50f"]
+[ext_resource type="PackedScene" uid="uid://dnxsi0xc3piik" path="res://player_ship/ship.tscn" id="7_h3eka"]
+[ext_resource type="Resource" uid="uid://cb75sbqw8ansl" path="res://abilities/Blink/Blink.tres" id="8_10slx"]
+[ext_resource type="Resource" uid="uid://ir2ljixcq2o" path="res://abilities/Explode/Explode.tres" id="9_a8smp"]
+[ext_resource type="Resource" uid="uid://b1004d1tnt5bo" path="res://abilities/Slash/Slash.tres" id="10_fjqq6"]
+[ext_resource type="Resource" uid="uid://dhcubdlycg5oy" path="res://abilities/Shield/Shield.tres" id="11_8opdi"]
+[ext_resource type="PackedScene" uid="uid://du2tc0co6bpt6" path="res://enemies/EnemySpawner.tscn" id="12_08avn"]
+[ext_resource type="PackedScene" uid="uid://fwd72kkqeyh4" path="res://effects/space_background.tscn" id="13_urs3x"]
+[ext_resource type="Script" path="res://components/world_component.gd" id="14_3ppmn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ionaa"]
+resource_local_to_scene = true
+shader = ExtResource("3_8rdv6")
+shader_parameter/normalized_health_amount = 1.0
+shader_parameter/fill_color = Vector4(0.66, 0.06, 0.06, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sacw6"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6tcsk"]
+resource_local_to_scene = true
+width = 30
+height = 30
+noise = SubResource("FastNoiseLite_sacw6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yd13w"]
+resource_local_to_scene = true
+shader = ExtResource("3_8rdv6")
+shader_parameter/normalized_health_amount = 1.0
+shader_parameter/fill_color = Vector4(0.66, 0.06, 0.06, 1)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vr2yf"]
+resource_local_to_scene = true
+width = 30
+height = 30
+noise = SubResource("FastNoiseLite_sacw6")
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_2f0a6")
+
+[node name="WorldUI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="BottomBar" type="HBoxContainer" parent="WorldUI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -30.0
+offset_right = 80.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HealthBar" parent="WorldUI/BottomBar" instance=ExtResource("2_l5d88")]
+material = SubResource("ShaderMaterial_ionaa")
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_6tcsk")
+fill_color = Vector4(0.66, 0.06, 0.06, 1)
+
+[node name="AbilityBar" parent="WorldUI/BottomBar" node_paths=PackedStringArray("ship") instance=ExtResource("4_rrirr")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+ship = NodePath("../../../Ship")
+
+[node name="ResourceBar" parent="WorldUI/BottomBar" instance=ExtResource("2_l5d88")]
+material = SubResource("ShaderMaterial_yd13w")
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_vr2yf")
+fill_color = Vector4(0.66, 0, 0.66, 1)
+
+[node name="ScoreContainer" type="HBoxContainer" parent="WorldUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -29.0
+offset_right = 30.0
+offset_bottom = 20.0
+grow_horizontal = 2
+script = ExtResource("5_ijiq8")
+game_stats = ExtResource("6_3u50f")
+
+[node name="ScoreLabel" type="Label" parent="WorldUI/ScoreContainer"]
+layout_mode = 2
+text = "Score:"
+
+[node name="Score" type="Label" parent="WorldUI/ScoreContainer"]
+layout_mode = 2
+
+[node name="Ship" parent="." node_paths=PackedStringArray("ability_bar") instance=ExtResource("7_h3eka")]
+position = Vector2(240, 270)
+ability_bar = NodePath("../WorldUI/BottomBar/AbilityBar")
+abilities = Array[Resource("res://abilities/AbilityData.gd")]([ExtResource("8_10slx"), ExtResource("9_a8smp"), ExtResource("10_fjqq6"), ExtResource("11_8opdi")])
+
+[node name="EnemySpawner" parent="." instance=ExtResource("12_08avn")]
+position = Vector2(8, -8)
+
+[node name="SpaceBackground" parent="." instance=ExtResource("13_urs3x")]
+
+[node name="WorldComponent" type="Node" parent="."]
+script = ExtResource("14_3ppmn")
+
+[connection signal="child_exiting_tree" from="Ship" to="Ship" method="_on_child_exiting_tree"]
+[connection signal="tree_exited" from="Ship" to="Ship" method="_on_tree_exited"]
+[connection signal="tree_exiting" from="Ship" to="Ship" method="_on_tree_exiting"]

@@ -1,0 +1,130 @@
+[gd_scene load_steps=15 format=3 uid="uid://vjqeorqpfo0v"]
+
+[ext_resource type="Texture2D" uid="uid://mdbwn46eluvf" path="res://assets/Player/ship.png" id="1_5eosg"]
+[ext_resource type="Script" path="res://player_ship/ship_sprite.gd" id="1_yahev"]
+[ext_resource type="Texture2D" uid="uid://btrwexa7kvtlm" path="res://assets/Player/ship_flame.png" id="2_4xjvo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p23cr"]
+atlas = ExtResource("1_5eosg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_comqq"]
+atlas = ExtResource("1_5eosg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yx2m"]
+atlas = ExtResource("1_5eosg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t135g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p23cr")
+}],
+"loop": true,
+"name": &"bank_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_comqq")
+}],
+"loop": true,
+"name": &"bank_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yx2m")
+}],
+"loop": true,
+"name": &"center",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itu78"]
+atlas = ExtResource("2_4xjvo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6dup"]
+atlas = ExtResource("2_4xjvo")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lguw4"]
+atlas = ExtResource("2_4xjvo")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmect"]
+atlas = ExtResource("2_4xjvo")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dydvt"]
+atlas = ExtResource("2_4xjvo")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3tmt"]
+atlas = ExtResource("2_4xjvo")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_embnf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itu78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6dup")
+}],
+"loop": true,
+"name": &"bank_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lguw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmect")
+}],
+"loop": true,
+"name": &"bank_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dydvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3tmt")
+}],
+"loop": true,
+"name": &"center",
+"speed": 10.0
+}]
+
+[node name="SpriteAnchor" type="Node2D"]
+script = ExtResource("1_yahev")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t135g")
+animation = &"center"
+autoplay = "center"
+
+[node name="LeftFlame" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3, 7)
+scale = Vector2(0.334, 0.5)
+sprite_frames = SubResource("SpriteFrames_embnf")
+animation = &"center"
+autoplay = "center"
+centered = false
+offset = Vector2(-8, 0)
+
+[node name="RightFlame" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, 7)
+scale = Vector2(0.323, 0.5)
+sprite_frames = SubResource("SpriteFrames_embnf")
+animation = &"center"
+autoplay = "center"
+centered = false
+offset = Vector2(-8, 0)

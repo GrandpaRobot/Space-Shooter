@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://76pkidk5ecm8"
+path="res://.godot/imported/wake.png-7810da8fb4441012f92163567d329a86.image"
+
+[deps]
+
+source_file="res://assets/Player/wake.png"
+dest_files=["res://.godot/imported/wake.png-7810da8fb4441012f92163567d329a86.image"]
+
+[params]
+
