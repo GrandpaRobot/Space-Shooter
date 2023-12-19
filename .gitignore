@@ -2,3 +2,5 @@
 .godot/
 *.exe
 *.tmp
+*.pck
+*.avi
