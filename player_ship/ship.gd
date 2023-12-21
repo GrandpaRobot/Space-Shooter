@@ -15,6 +15,9 @@ class_name PlayerShip
 @export var ability_bar: AbilityBar
 @export var abilities: Array[AbilityData]
 
+# TODO - this is hacky, rethink this whole global movement thing
+@export var isFishing: bool = false
+
 signal player_died
 signal player_moved
 
@@ -27,6 +30,7 @@ func _ready() -> void:
 
 func cast_ability(ability: AbilityData):
 	if(!ability): return
+	# TODO - this switch should probably be made more general and the ability script should handle how it gets spawned/used somehow?
 	if(ability.scene):
 		var instance = ability.scene.instantiate()
 		center_forward.add_child(instance)
@@ -35,11 +39,15 @@ func cast_ability(ability: AbilityData):
 
 func fire_lasers() -> void:
 	scale_component.tween_scale()
-	spawner_component.spawn(left_muzzle.global_position)
-	spawner_component.spawn(right_muzzle.global_position)
+	# spawner_component.spawn(left_muzzle.global_position)
+	# spawner_component.spawn(right_muzzle.global_position)
 
-func _process(_delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	ship_sprite.animate_ship(move_component.velocity.x, move_component.velocity.y)
+	look_at(get_global_mouse_position())
+	# TODO - compensating 90 degrees is weird and I don't like it. Figure out how to change the normal of the sprite?
+	rotate(deg_to_rad(90))
 
 func _on_tree_exiting():
+	# TODO - hm, is this going to trigger at the wrong times?
 	emit_signal('player_died')

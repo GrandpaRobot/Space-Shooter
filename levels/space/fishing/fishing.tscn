@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2n1wryvs8edm"]
+
+[ext_resource type="PackedScene" uid="uid://fwd72kkqeyh4" path="res://effects/space_background.tscn" id="1_mqyto"]
+[ext_resource type="PackedScene" uid="uid://dnxsi0xc3piik" path="res://player_ship/ship.tscn" id="2_nefik"]
+[ext_resource type="Shader" path="res://levels/space/fishing/fishing_ring.gdshader" id="3_d08j1"]
+[ext_resource type="Script" path="res://levels/space/fishing/FishingLine.gd" id="3_kxy5k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8w6ol"]
+shader = ExtResource("3_d08j1")
+
+[node name="Fishing" type="Node2D"]
+
+[node name="SpaceBackground" parent="." instance=ExtResource("1_mqyto")]
+
+[node name="FishingLine" type="Line2D" parent="." node_paths=PackedStringArray("actor")]
+position = Vector2(1, 1)
+points = PackedVector2Array(240, 135, 240, 200)
+closed = true
+width = 1.0
+script = ExtResource("3_kxy5k")
+actor = NodePath("../FishingUI/Ship")
+
+[node name="FishingUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 479.0
+offset_bottom = 270.0
+
+[node name="ColorRect" type="ColorRect" parent="FishingUI"]
+material = SubResource("ShaderMaterial_8w6ol")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -57.0
+offset_right = 57.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ship" parent="FishingUI" instance=ExtResource("2_nefik")]
+position = Vector2(241, 200)
+isFishing = true

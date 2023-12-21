@@ -56,6 +56,7 @@ func animate_ship(velocity_x: float, velocity_y: float) -> void:
 		left_flame.play("center")
 		right_flame.play("center")
 	# Moving forward
+	# TODO - fix this so it isn't reliant on velocity in the y, but as a normal to the ship direction (so if moving "forward" but towards bottom of screen, flame is Bright)
 	if velocity_y < 0:
 		scale_thrusters(ThrusterScale.BRIGHT)
 	# Moving backward

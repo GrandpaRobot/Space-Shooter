@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b1fi0cr5rt1a"]
+[gd_scene load_steps=21 format=3 uid="uid://b1fi0cr5rt1a"]
 
 [ext_resource type="Script" path="res://levels/space/world.gd" id="1_2f0a6"]
 [ext_resource type="PackedScene" uid="uid://c2clu11i26k4n" path="res://ui/Combat/health-bar.tscn" id="2_l5d88"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://du2tc0co6bpt6" path="res://enemies/EnemySpawner.tscn" id="12_08avn"]
 [ext_resource type="PackedScene" uid="uid://fwd72kkqeyh4" path="res://effects/space_background.tscn" id="13_urs3x"]
 [ext_resource type="Script" path="res://components/world_component.gd" id="14_3ppmn"]
+[ext_resource type="PackedScene" uid="uid://cndx355d1onks" path="res://enemies/pink_enemy.tscn" id="15_4yj0q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ionaa"]
 resource_local_to_scene = true
@@ -103,6 +104,7 @@ abilities = Array[Resource("res://abilities/AbilityData.gd")]([ExtResource("8_10
 
 [node name="EnemySpawner" parent="." instance=ExtResource("12_08avn")]
 position = Vector2(8, -8)
+PinkEnemyScene = ExtResource("15_4yj0q")
 
 [node name="SpaceBackground" parent="." instance=ExtResource("13_urs3x")]
 
