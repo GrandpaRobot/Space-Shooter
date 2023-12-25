@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2n1wryvs8edm"]
+[gd_scene load_steps=11 format=3 uid="uid://b2n1wryvs8edm"]
 
 [ext_resource type="PackedScene" uid="uid://fwd72kkqeyh4" path="res://effects/space_background.tscn" id="1_mqyto"]
+[ext_resource type="Script" path="res://levels/space/fishing/fishing.gd" id="1_ol353"]
+[ext_resource type="Texture2D" uid="uid://b7xyr001yr84k" path="res://assets/Space Objects/black hole thing.png" id="2_5d5aj"]
 [ext_resource type="PackedScene" uid="uid://dnxsi0xc3piik" path="res://player_ship/ship.tscn" id="2_nefik"]
 [ext_resource type="Script" path="res://levels/space/fishing/FishingLine.gd" id="3_kxy5k"]
 [ext_resource type="Shader" path="res://levels/space/fishing/fishing_ui.gdshader" id="4_kk0rg"]
 [ext_resource type="Script" path="res://levels/space/fishing/TextureRect.gd" id="5_33j3l"]
+[ext_resource type="Script" path="res://levels/space/fishing/movement_lock_component.gd" id="6_7l43a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dskua"]
 shader = ExtResource("4_kk0rg")
@@ -12,6 +15,7 @@ shader_parameter/base_radius = 0.5
 shader_parameter/line_width = 0.2
 shader_parameter/feathering = 0.02
 shader_parameter/circumference_width = 0.02
+shader_parameter/bulge_size = 0.0
 shader_parameter/alpha_subtract = 0.5
 shader_parameter/base_color = Color(0.81, 0.39, 0.29, 1)
 shader_parameter/sweet_spot_color = Color(0, 1, 0.12, 1)
@@ -23,20 +27,14 @@ shader_parameter/good_arc_max = 2.0
 size = Vector2(100, 100)
 
 [node name="Fishing" type="Node2D"]
+script = ExtResource("1_ol353")
 
 [node name="SpaceBackground" parent="." instance=ExtResource("1_mqyto")]
 
-[node name="Ship" parent="." instance=ExtResource("2_nefik")]
-position = Vector2(241, 200)
-isFishing = true
-
-[node name="FishingLine" type="Line2D" parent="." node_paths=PackedStringArray("actor")]
-position = Vector2(1, 1)
-points = PackedVector2Array(240, 135, 240, 200)
-closed = true
-width = 1.0
-script = ExtResource("3_kxy5k")
-actor = NodePath("../Ship")
+[node name="Fishing Hole" type="Sprite2D" parent="."]
+position = Vector2(240, 136)
+scale = Vector2(0.546875, 0.546875)
+texture = ExtResource("2_5d5aj")
 
 [node name="FishingUI" type="Control" parent="."]
 custom_minimum_size = Vector2(32, 32)
@@ -45,6 +43,7 @@ anchors_preset = 0
 offset_right = 480.0
 offset_bottom = 270.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="FishingUI"]
 material = SubResource("ShaderMaterial_dskua")
@@ -60,7 +59,23 @@ offset_right = 50.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2.5, 2.5)
 pivot_offset = Vector2(50, 50)
 texture = SubResource("PlaceholderTexture2D_yw7xj")
 script = ExtResource("5_33j3l")
+
+[node name="Ship" parent="." instance=ExtResource("2_nefik")]
+position = Vector2(241, 200)
+isFishing = true
+
+[node name="RadialClamp" type="Node" parent="Ship" node_paths=PackedStringArray("actor")]
+script = ExtResource("6_7l43a")
+actor = NodePath("..")
+max_distance = 50.0
+
+[node name="FishingLine" type="Line2D" parent="." node_paths=PackedStringArray("actor")]
+position = Vector2(1, 1)
+points = PackedVector2Array(240, 135, 240, 200)
+closed = true
+width = 1.0
+script = ExtResource("3_kxy5k")
+actor = NodePath("../Ship")
